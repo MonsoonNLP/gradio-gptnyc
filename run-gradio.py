@@ -17,7 +17,7 @@ def hello(question, context):
 io = gr.Interface(fn=hello,
     inputs=[
         gr.inputs.Textbox(label="Question"),
-        gr.inputs.Textbox(lines=3, label="Context"),
+        gr.inputs.Textbox(lines=3, label="More Details (optional)"),
     ],
     outputs=gr.outputs.Textbox(label="Reply"),
     verbose=True,
