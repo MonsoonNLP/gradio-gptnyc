@@ -6,10 +6,13 @@ tokenizer = GPT2Tokenizer.from_pretrained("monsoon-nlp/gpt-nyc")
 model = GPT2LMHeadModel.from_pretrained("monsoon-nlp/gpt-nyc", pad_token_id=tokenizer.eos_token_id)
 
 def hello(question, context):
-    inp = question + ' - ' + context + ' %%'
+    if ((context is None) or (len(context.strip()) == 0)):
+        inp = question + ' %% '
+    else:
+        inp = question + ' - ' + context + ' %% '
     input_ids = torch.tensor([tokenizer.encode(inp)])
-    output = model.generate(input_ids, max_length=50, early_stopping=True)
-    resp = tokenizer.decode(output[0], skip_special_tokens=True)
+    output = model.generate(input_ids, num_beams=5, max_length=50, early_stopping=True)
+    resp = tokenizer.decode(output[0], skip_special_tokens=False)
     if '%%' in resp:
         resp = resp[resp.index('%%') + 2 : ]
     return resp
