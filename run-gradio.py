@@ -7,10 +7,8 @@ model = AutoModel.from_pretrained("monsoon-nlp/gpt-nyc", pad_token_id=tokenizer.
 def hello(question, context):
     inp = question + ' - ' + context + ' %%'
     input_ids = tokenizer.encode(inp)
-    beam_output = model.generate(input_ids, max_length=100, num_beams=5,
-        no_repeat_ngram_size=2, early_stopping=True)
-    output = tokenizer.decode(beam_output[0], skip_special_tokens=True, clean_up_tokenization_spaces=True)
-    return ".".join(output.split(".")[:-1]) + "."
+    output = model.generate(input_ids, max_length=50, early_stopping=True)
+    return tokenizer.decode(output[0], skip_special_tokens=True)
 
 io = gr.Interface(fn=hello,
     inputs=[
