@@ -6,9 +6,9 @@ tokenizer = GPT2Tokenizer.from_pretrained("monsoon-nlp/gpt-nyc")
 model = GPT2LMHeadModel.from_pretrained("monsoon-nlp/gpt-nyc", pad_token_id=tokenizer.eos_token_id)
 
 def hello(question, context):
-    inp = question + ' - ' + context + ' %% '
+    inp = question + ' - ' + context + ' %%'
     input_ids = torch.tensor([tokenizer.encode(inp)])
-    output = model.generate(input_ids, num_beams=3, max_length=50, early_stopping=True)
+    output = model.generate(input_ids, max_length=50, early_stopping=True)
     resp = tokenizer.decode(output[0], skip_special_tokens=True)
     if '%%' in resp:
         resp = resp[resp.index('%%') + 2 : ]
@@ -26,4 +26,4 @@ io = gr.Interface(fn=hello,
     #thumbnail='https://github.com/MonsoonNLP/gradio-gptnyc',
     analytics_enabled=True)
 
-io.launch(debug=False)
+io.launch(debug=True)
