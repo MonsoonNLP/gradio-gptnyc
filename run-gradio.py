@@ -22,7 +22,7 @@ io = gr.Interface(fn=hello,
     outputs=gr.outputs.Textbox(label="Reply"),
     verbose=True,
     title='GPT-NYC Input',
-    description='Learn more at https://monsoonnlp.com/gpt-nyc/index.html',
+    description='Learn more at https://huggingface.co/monsoon-nlp/gpt-nyc',
     #thumbnail='https://github.com/MonsoonNLP/gradio-gptnyc',
     analytics_enabled=True)
 
